@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Task, TaskDocument } from './task.schema';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { PatchTaskDto} from "./dto/patch-task.dto";
 
 @Injectable()
 export class TasksService {
@@ -13,11 +14,15 @@ export class TasksService {
         return newTask.save();
     }
 
+    findById(id: string): Promise<Task> {
+        return this.taskModel.findOne({id}).exec();
+    }
+
     async getAll(): Promise<Task[]> {
         return this.taskModel.find().exec();
     }
 
-    async patch(patchTaskDto: PatchTaskDto): Promise<Task> {
-        const task = this.taskModel.find()
+    async patch(id: string, patchTaskDto: PatchTaskDto): Promise<Task> {
+        return this.taskModel.findOneAndUpdate({id}, patchTaskDto);
     }
 }
