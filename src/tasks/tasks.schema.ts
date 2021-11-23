@@ -1,15 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { CronJob } from 'cron';
-import { FunctionFactory } from '../manager/functions/factory'
-import {SchedulerRegistry} from "@nestjs/schedule";
 
 export type TaskDocument = Task & Document;
 
 @Schema()
 export class Task {
-    constructor(private schedulerRegistry: SchedulerRegistry) {}
-
   @Prop({ required: true })
       type: string;
 
@@ -32,4 +27,4 @@ export class Task {
       stopped_at: Date;
 }
 
-export const TaskSchema = SchemaFactory.createForClass(Task);
+export const TasksSchema = SchemaFactory.createForClass(Task);
