@@ -1,0 +1,1 @@
+export default (cron: string, taskId: string) => console.log(`TestFunc executed. Cron: ${cron}, TaskId: ${taskId}`);
