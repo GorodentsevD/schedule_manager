@@ -10,13 +10,7 @@ import {SchedulerRegistry} from '@nestjs/schedule';
 
 @Injectable()
 export class TasksService {
-    constructor(
-        @InjectModel(Task.name) private taskModel: Model<TaskDocument>,
-        private schedulerRegistry: SchedulerRegistry,
-        private logger: LoggerService,
-        private functionFactory: FunctionFactory
-    ) {
-    }
+    constructor(@InjectModel(Task.name) private taskModel: Model<TaskDocument>) {}
 
     async create(createTaskDto: CreateTaskDto): Promise<TaskDocument> {
         const newTask = new this.taskModel(createTaskDto);
