@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { Task } from './tasks.schema';
@@ -26,5 +35,11 @@ export class TasksController {
   @Patch(':id')
   patch(@Param() params, @Body() data: PatchTaskDto): Promise<Task> {
     return this.tasksService.patch(params.id, data);
+  }
+
+  @Delete(':id')
+  @HttpCode(204)
+  delete(@Param() params): Promise<void> {
+    return this.tasksService.delete(params.id);
   }
 }

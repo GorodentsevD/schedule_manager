@@ -25,4 +25,8 @@ export class TasksService {
   async patch(id: string, patchTaskDto: PatchTaskDto): Promise<TaskDocument> {
     return this.taskModel.findOneAndUpdate({ id }, patchTaskDto).exec();
   }
+
+  async delete(id: string): Promise<void> {
+    await this.taskModel.deleteOne({ id }).exec();
+  }
 }
