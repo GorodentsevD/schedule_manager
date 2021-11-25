@@ -1,4 +1,4 @@
 export type HomeData = {
-    name: string;
-    version: string;
-}
+  name: string;
+  version: string;
+};

@@ -1,15 +1,15 @@
 import { IsNotEmpty } from 'class-validator';
 
 export class CreateTaskDto {
-    @IsNotEmpty()
-    type: string;
+  @IsNotEmpty()
+  type: string;
 
-    @IsNotEmpty()
-    time: string;
+  @IsNotEmpty()
+  time: string;
 
-    @IsNotEmpty()
-    func: string
+  @IsNotEmpty()
+  func: string;
 
-    @IsNotEmpty()
-    is_active: Boolean
+  @IsNotEmpty()
+  is_active: boolean;
 }

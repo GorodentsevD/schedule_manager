@@ -6,22 +6,22 @@ export type TaskDocument = Task & Document;
 @Schema()
 export class Task {
   @Prop({ required: true })
-      type: string;
-
-  @Prop({required: true})
-      func: string;
+  type: string;
 
   @Prop({ required: true })
-      time: string;
+  func: string;
+
+  @Prop({ required: true })
+  time: string;
 
   @Prop({ required: false })
-      completed_at: Date;
+  completed_at: Date;
 
   @Prop({ required: true })
-      is_active: boolean;
+  is_active: boolean;
 
-  @Prop({required: false})
-      stopped_at: Date;
+  @Prop({ required: false })
+  stopped_at: Date;
 }
 
 export const TasksSchema = SchemaFactory.createForClass(Task);

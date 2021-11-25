@@ -1,10 +1,10 @@
 import { IsNotEmpty } from 'class-validator';
 
 export class PatchTaskDto {
-    @IsNotEmpty()
-    id: string;
+  @IsNotEmpty()
+  id: string;
 
-    time: string;
+  time: string;
 
-    is_active: boolean;
+  is_active: boolean;
 }
