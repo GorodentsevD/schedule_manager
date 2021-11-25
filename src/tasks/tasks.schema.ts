@@ -14,9 +14,6 @@ export class Task {
   @Prop({ required: true })
       time: string;
 
-  @Prop({ required: true })
-      status: string;
-
   @Prop({ required: false })
       completed_at: Date;
 

@@ -5,7 +5,7 @@ export class CreateTaskDto {
     type: string;
 
     @IsNotEmpty()
-    date: Date;
+    time: string;
 
     @IsNotEmpty()
     func: string

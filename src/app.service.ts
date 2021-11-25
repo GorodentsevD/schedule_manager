@@ -1,10 +1,12 @@
-import { Injectable, Get, Post } from '@nestjs/common';
+import { Injectable, Get } from '@nestjs/common';
+import {name, version} from '../package.json';
+import {HomeData} from "./types/homeData";
 
 @Injectable()
 export class AppService {
 
   @Get()
-  getHello(): string {
-    return 'Hello World!';
+  get(): HomeData {
+    return { name, version };
   }
 }

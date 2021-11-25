@@ -9,4 +9,4 @@ import { Task, TasksSchema } from './tasks.schema';
     controllers: [TasksController],
     providers: [TasksService],
 })
-export class CatsModule {}
+export class TasksModule {}

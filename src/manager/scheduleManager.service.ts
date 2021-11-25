@@ -1,24 +1,29 @@
 import {CronJob} from "cron";
 import {SchedulerRegistry} from "@nestjs/schedule";
 import {Injectable, Logger} from "@nestjs/common";
-import {FunctionFactory} from "./functions/factory";
+import {FunctionFactoryService} from "./factory.service";
 import {TaskDocument, Task} from "../tasks/tasks.schema";
 import {InjectModel} from "@nestjs/mongoose";
 import {Model} from "mongoose";
 import {ChangeStreamDocument} from "mongodb";
 
 @Injectable()
-export class ScheduleManager {
+export class ScheduleManagerService {
+    private readonly logger = new Logger(ScheduleManagerService.name);
+
     constructor(
         @InjectModel(Task.name) private taskModel: Model<TaskDocument>,
         private schedulerRegistry: SchedulerRegistry,
-        private functionFactory: FunctionFactory,
-        private logger: Logger
+        private functionFactory: FunctionFactoryService,
     ) {
         this.taskModel.watch().on('change', async (data: ChangeStreamDocument<TaskDocument>) => {
             const task = data.fullDocument;
 
-            if (data.operationType === 'insert') return this.startTask(task);
+            this.logger.log(`Caught event: "${data.operationType}"`);
+
+            if (data.operationType === 'insert') {
+                return this.startTask(task);
+            }
 
             if (data.operationType === 'update') {
                 return task.is_active ?
@@ -26,7 +31,9 @@ export class ScheduleManager {
                     this.stopTask(task);
             }
 
-            if (data.operationType === 'delete') return this.deleteTask(task);
+            if (data.operationType === 'delete') {
+                return this.deleteTask(task);
+            }
 
             this.logger.error(`Caught unexpected event: "${data.operationType}"`);
         });
@@ -68,7 +75,7 @@ export class ScheduleManager {
             this.schedulerRegistry.deleteCronJob(task._id);
         }
 
-        const job = new CronJob(task.time, () => this.functionFactory.getFunction(task.func));
+        const job = new CronJob(task.time, () => this.functionFactory.getFunction(task.func)(task.time, task._id));
 
         this.schedulerRegistry.addCronJob(task._id, job);
         job.start();

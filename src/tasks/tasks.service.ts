@@ -1,12 +1,9 @@
 import { Model } from 'mongoose';
-import {Injectable, LoggerService} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import {Task, TaskDocument, TasksSchema} from './tasks.schema';
+import {Task, TaskDocument} from './tasks.schema';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { PatchTaskDto} from './dto/patch-task.dto';
-import {CronJob} from 'cron';
-import {FunctionFactory} from '../manager/functions/factory';
-import {SchedulerRegistry} from '@nestjs/schedule';
 
 @Injectable()
 export class TasksService {

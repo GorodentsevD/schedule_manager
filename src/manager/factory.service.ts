@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import testFunc from './testFunc';
+import testFunc from './functions/testFunc';
 
 @Injectable()
-export class FunctionFactory {
+export class FunctionFactoryService {
     public getFunction(func: string) : (cron: string, taskId: string) => void {
         switch(func) {
         case 'testFunc': 

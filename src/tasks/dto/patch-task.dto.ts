@@ -4,7 +4,7 @@ export class PatchTaskDto {
     @IsNotEmpty()
     id: string;
 
-    date: Date;
+    time: string;
 
-    status: string;
+    is_active: boolean;
 }
